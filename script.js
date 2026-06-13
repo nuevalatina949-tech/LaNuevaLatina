@@ -33,6 +33,12 @@ function setPlaybackUI(isPlaying, message) {
     const bottomLabel = isPlaying ? "❚❚" : "▶";
     const liveLabel = isPlaying ? ".  Reproduciendo" : ".  Escuchar en vivo";
 
+    // Update play button SVG icon
+    const playSvg = playBtn.querySelector("svg path");
+    if (playSvg) {
+        playSvg.setAttribute("d", isPlaying ? "M6 4h4v16H6V4Zm8 0h4v16h-4V4Z" : "M8 5v14l11-7L8 5Z");
+    }
+
     if (playLabel) {
         playLabel.textContent = label;
     } else {
