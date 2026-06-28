@@ -1383,6 +1383,24 @@ footer {
     object-fit: contain;
 }
 
+/* Mostrar los logos adicionales en una fila junto al logo principal */
+.footer-logos-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.footer-logos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+.footer-logos .footer-logo-small {
+    margin-bottom: 0; /* eliminar margen vertical específico */
+    width: 40px; /* tamaño uniforme para logos secundarios */
+    height: auto;
+}
+
 .footer-grid p,
 .footer-grid a {
     display: block;
