@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Entrevistas — La Nueva Latina</title>
+    <link rel="stylesheet" href="entrevistas.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">
+                <img src="img/logo.png" alt="Logo de La Nueva Latina" class="logo-image">
+            </span>
+            <span class="logo-text">
+                <strong>LA NUEVA LATINA</strong>
+            </span>
+        </a>
+
+        <nav class="desktop-nav">
+            <a href="index.html">Inicio</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#programacion">Programación</a>
+            <a href="entrevistas.html" class="active">Entrevistas</a>
+            <a href="index.html#locutores">Locutores</a>
+            <a href="index.html#noticias">Noticias</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="btn btn-live" id="livePlayBtnHeader" type="button">Escuchar en vivo</button>
+            <button class="menu-toggle" id="menuToggleHeader" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileSidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="mobileSidebar" aria-hidden="true">
+        <div class="sidebar-top">
+            <h3>Menú</h3>
+            <button type="button" id="closeSidebar" aria-label="Cerrar menú">×</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html">Inicio</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#programacion">Programación</a>
+            <a href="entrevistas.html" class="active">Entrevistas</a>
+            <a href="index.html#locutores">Locutores</a>
+            <a href="index.html#noticias">Noticias</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <main>
+        <section class="interview-hero" aria-label="Entrevista destacada">
+            <article class="hero-left">
+                <div class="hero-content">
+                    <div class="eyebrow">DESTACADA</div>
+                    <h1>
+                        <span class="hero-title-line">El futuro de la innovación</span>
+                        <span class="hero-title-line">está en las personas</span>
+                    </h1>
+                    <p class="hero-tagline">Una conversación con Ana Martínez sobre liderazgo, tecnología y el impacto real de la innovación en la sociedad actual.</p>
+
+                    <div class="hero-meta">
+                        <span>15 de mayo, 2024</span>
+                        <span class="divider">•</span>
+                        <span>32:45 min</span>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-play" href="#featured-interview">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                            Ver entrevista
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hero-player interview-player" id="featured-interview">
+                <span class="pill-live">Ana Martínez</span>
+                <div class="player-cover">
+                    <img src="https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg" alt="Ana Martínez" loading="lazy">
+                    <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" title="Entrevista video" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="player-actions interview-actions">
+                    <button class="btn btn-play" type="button">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                        Reproducir entrevista
+                    </button>
+                    <input class="range" type="range" min="0" max="100" value="15" aria-label="Control de reproducción">
+                </div>
+            </article>
+        </section>
+
+        <section class="interviews-section" aria-label="Listado de entrevistas">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Entrevistas</p>
+                    <h2>Últimas entrevistas</h2>
+                </div>
+                <div class="search-row">
+                    <label for="searchInterviews" class="sr-only">Buscar entrevistas</label>
+                    <input id="searchInterviews" type="search" placeholder="Buscar entrevistas..." aria-label="Buscar entrevistas">
+                </div>
+            </div>
+
+            <div id="interviewsList" class="interview-grid">
+                <article class="interview-card" data-title="Emprender con propósito" data-desc="Cómo construir negocios con propósito" data-date="2024-05-10" data-video="KMXCwyKD1Cg">
+                    <div class="thumb-wrap">
+                        <img class="thumb" src="https://img.youtube.com/vi/KMXCwyKD1Cg/maxresdefault.jpg" alt="Emprender con propósito" loading="lazy">
+                        <button class="play-overlay" aria-label="Reproducir entrevista">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <div class="interview-card-body">
+                        <div>
+                            <h3>Emprender con propósito</h3>
+                            <p class="muted">10 de mayo, 2024 • 28:15</p>
+                            <p class="interview-desc">Cómo construir negocios con propósito y generar impacto con cada decisión.</p>
+                        </div>
+                        <div class="interview-actions">
+                            <button class="icon-btn like-btn" aria-pressed="false" aria-label="Me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="currentColor"/></svg>
+                                <span class="count">96</span>
+                            </button>
+                            <button class="icon-btn dislike-btn" aria-pressed="false" aria-label="No me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.65l1.45 1.32C18.6 8.64 22 11.72 22 15.5 22 18.58 19.58 21 16.5 21c-1.74 0-3.41-.81-4.5-2.09C10.91 20.19 9.24 21 7.5 21 4.42 21 2 18.58 2 15.5c0-3.78 3.4-6.86 8.55-11.54L12 2.65Z" fill="currentColor"/></svg>
+                                <span class="count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="interview-card" data-title="Liderazgo en tiempos de cambio" data-desc="Retos de liderar equipos" data-date="2024-05-02" data-video="dQw4w9WgXcQ">
+                    <div class="thumb-wrap">
+                        <img class="thumb" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Liderazgo en tiempos de cambio" loading="lazy">
+                        <button class="play-overlay" aria-label="Reproducir entrevista">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <div class="interview-card-body">
+                        <div>
+                            <h3>Liderazgo en tiempos de cambio</h3>
+                            <p class="muted">2 de mayo, 2024 • 24:10</p>
+                            <p class="interview-desc">Retos de liderar equipos y mantener la motivación en momentos de cambio.</p>
+                        </div>
+                        <div class="interview-actions">
+                            <button class="icon-btn like-btn" aria-pressed="false" aria-label="Me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="currentColor"/></svg>
+                                <span class="count">84</span>
+                            </button>
+                            <button class="icon-btn dislike-btn" aria-pressed="false" aria-label="No me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.65l1.45 1.32C18.6 8.64 22 11.72 22 15.5 22 18.58 19.58 21 16.5 21c-1.74 0-3.41-.81-4.5-2.09C10.91 20.19 9.24 21 7.5 21 4.42 21 2 18.58 2 15.5c0-3.78 3.4-6.86 8.55-11.54L12 2.65Z" fill="currentColor"/></svg>
+                                <span class="count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="interview-card" data-title="Tecnología con impacto social" data-desc="Transformando comunidades" data-date="2024-04-28" data-video="9bZkp7q19f0">
+                    <div class="thumb-wrap">
+                        <img class="thumb" src="https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg" alt="Tecnología con impacto social" loading="lazy">
+                        <button class="play-overlay" aria-label="Reproducir entrevista">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <div class="interview-card-body">
+                        <div>
+                            <h3>Tecnología con impacto social</h3>
+                            <p class="muted">28 de abril, 2024 • 31:20</p>
+                            <p class="interview-desc">Innovación digital como motor de cambio en comunidades y proyectos sociales.</p>
+                        </div>
+                        <div class="interview-actions">
+                            <button class="icon-btn like-btn" aria-pressed="false" aria-label="Me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="currentColor"/></svg>
+                                <span class="count">112</span>
+                            </button>
+                            <button class="icon-btn dislike-btn" aria-pressed="false" aria-label="No me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.65l1.45 1.32C18.6 8.64 22 11.72 22 15.5 22 18.58 19.58 21 16.5 21c-1.74 0-3.41-.81-4.5-2.09C10.91 20.19 9.24 21 7.5 21 4.42 21 2 18.58 2 15.5c0-3.78 3.4-6.86 8.55-11.54L12 2.65Z" fill="currentColor"/></svg>
+                                <span class="count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="interview-card" data-title="Educación para el futuro" data-desc="El papel de la educación" data-date="2024-04-20" data-video="fJ9rUzIMcZQ">
+                    <div class="thumb-wrap">
+                        <img class="thumb" src="https://img.youtube.com/vi/fJ9rUzIMcZQ/maxresdefault.jpg" alt="Educación para el futuro" loading="lazy">
+                        <button class="play-overlay" aria-label="Reproducir entrevista">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <div class="interview-card-body">
+                        <div>
+                            <h3>Educación para el futuro</h3>
+                            <p class="muted">20 de abril, 2024 • 27:35</p>
+                            <p class="interview-desc">El papel de la educación moderna y su impacto en las nuevas generaciones.</p>
+                        </div>
+                        <div class="interview-actions">
+                            <button class="icon-btn like-btn" aria-pressed="false" aria-label="Me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35Z" fill="currentColor"/></svg>
+                                <span class="count">75</span>
+                            </button>
+                            <button class="icon-btn dislike-btn" aria-pressed="false" aria-label="No me gusta">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.65l1.45 1.32C18.6 8.64 22 11.72 22 15.5 22 18.58 19.58 21 16.5 21c-1.74 0-3.41-.81-4.5-2.09C10.91 20.19 9.24 21 7.5 21 4.42 21 2 18.58 2 15.5c0-3.78 3.4-6.86 8.55-11.54L12 2.65Z" fill="currentColor"/></svg>
+                                <span class="count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand-compact">
+                    <div class="footer-logos-wrap">
+                        <img src="img/logo.png" alt="La Nueva Latina" class="footer-logo-small" loading="lazy">
+                        <div class="footer-logos">
+                            <img src="img/logo2.png" alt="Logo 2" class="footer-logo-small" loading="lazy">
+                            <img src="img/logo3.png" alt="Logo 3" class="footer-logo-small" loading="lazy">
+                            <img src="img/logo4.png" alt="Logo 4" class="footer-logo-small" loading="lazy">
+                        </div>
+                    </div>
+                    <h3>LA NUEVA LATINA 94.9</h3>
+                </div>
+                <p>La radio que te acompaña siempre.</p>
+                <div class="social-links" aria-label="Redes sociales">
+                    <a href="https://www.facebook.com/share/195CUcAtqw/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 8.25H15V6h-1.5C11.57 6 10.5 7.08 10.5 8.75V10.5H9v2.25h1.5V18H13v-5.25h1.75l.25-2.25H13V9c0-.4.1-.75.5-.75Z"></path></svg>
+                    </a>
+                    <a href="https://www.instagram.com/lanuevalatina94.9?utm_source=qr&igsh=dDZkOGhpY3NxZWY1" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 2.75A5.25 5.25 0 1 1 6.75 12 5.25 5.25 0 0 1 12 6.75Zm0 2A3.25 3.25 0 1 0 15.25 12 3.25 3.25 0 0 0 12 8.75ZM17.25 6.5a1 1 0 1 0 1 1 1 1 0 0 0-1-1Z"></path></svg>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3c.5 2.3 1.8 4 4.5 4.3v3a8.16 8.16 0 0 1-4.5-1.3V15a5 5 0 1 1-5-5c.2 0 .4 0 .6.03v3.1a2 2 0 1 0 1.9 2v-12h2.5Z"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h3>Comunidad</h3>
+                <img src="img/QrComunidad.png" alt="QR Comunidad" class="footer-qr" loading="lazy">
+                <p class="comunidad-caption"><a href="#unirme" style="color: #ff8d00; text-decoration: none;">Unirme a la comunidad</a></p>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p><a href="https://wa.me/76690740" target="_blank" rel="noopener noreferrer" style="color: #ff8d00; text-decoration: none;">76690740</a></p>
+                <p><a href="mailto:nuevalatina94.9@gmail.com" style="color: #ff8d00; text-decoration: none;">nuevalatina94.9@gmail.com</a></p>
+            </div>
+            <div class="footer-map">
+                <h3>Ubicación</h3>
+                <p>2237 Av. Las Américas, Ponce, Puerto Rico.</p>
+                <div class="map-frame">
+                    <iframe
+                        title="Mapa de referencia de La Nueva Latina"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.7256789!2d-66.6212616!3d18.0035191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c03510e308e8c91%3A0xb952bb7061f58c3e!2s2237%20Av%20Las%20Americas%2C%20Ponce%2C%20Puerto%20Rico!5e0!3m2!1ses!2spr!4v1234567890"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen="" allow="fullscreen"></iframe>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="entrevistas.js"></script>
+</body>
+</html>
