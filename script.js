@@ -23,51 +23,70 @@ const aboutToggle = document.getElementById("aboutToggle");
 const aboutMore = document.getElementById("aboutMore");
 
 const streamUrl = "https://cast3.my-control-panel.com/proxy/lanueval/stream";
+let radioWasPlaying = false;
 
-radioPlayer.src = streamUrl;
-radioPlayer.volume = Number(volumeRange.value) / 100;
+if (radioPlayer && volumeRange) {
+    radioPlayer.src = streamUrl;
+    radioPlayer.volume = Number(volumeRange.value) / 100;
+}
 
 function setPlaybackUI(isPlaying, message) {
-    const playLabel = playBtn.querySelector("span");
-    const label = isPlaying ? "Pausar radio" : "Escuchar radio";
-    const bottomLabel = isPlaying ? "❚❚" : "▶";
-    const liveLabel = isPlaying ? ".  Reproduciendo" : ".  Escuchar en vivo";
+    if (playBtn) {
+        const playLabel = playBtn.querySelector("span");
+        const label = isPlaying ? "Pausar radio" : "Escuchar radio";
+        const liveLabel = isPlaying ? ".  Reproduciendo" : ".  Escuchar en vivo";
 
-    // Update play button SVG icon
-    const playSvg = playBtn.querySelector("svg path");
-    if (playSvg) {
-        playSvg.setAttribute("d", isPlaying ? "M6 4h4v16H6V4Zm8 0h4v16h-4V4Z" : "M8 5v14l11-7L8 5Z");
+        // Update play button SVG icon
+        const playSvg = playBtn.querySelector("svg path");
+        if (playSvg) {
+            playSvg.setAttribute("d", isPlaying ? "M6 4h4v16H6V4Zm8 0h4v16h-4V4Z" : "M8 5v14l11-7L8 5Z");
+        }
+
+        if (playLabel) {
+            playLabel.textContent = label;
+        } else {
+            playBtn.textContent = label;
+        }
+        playBtn.setAttribute("aria-label", isPlaying ? "Pausar radio" : "Reproducir radio");
+        playBtn.setAttribute("aria-pressed", String(isPlaying));
+        playBtn.classList.toggle("is-playing", isPlaying);
     }
 
-    if (playLabel) {
-        playLabel.textContent = label;
-    } else {
-        playBtn.textContent = label;
+    if (bottomPlay) {
+        const bottomLabel = isPlaying ? "❚❚" : "▶";
+        bottomPlay.textContent = bottomLabel;
+        bottomPlay.setAttribute("aria-label", isPlaying ? "Pausar radio" : "Reproducir radio");
+        bottomPlay.setAttribute("aria-pressed", String(isPlaying));
+        bottomPlay.classList.toggle("is-playing", isPlaying);
     }
-    bottomPlay.textContent = bottomLabel;
-    livePlayBtn.textContent = liveLabel;
-    playBtn.setAttribute("aria-label", isPlaying ? "Pausar radio" : "Reproducir radio");
-    livePlayBtn.setAttribute("aria-label", isPlaying ? "Radio reproduciendose, tocar para pausar" : "Escuchar en vivo");
-    bottomPlay.setAttribute("aria-label", isPlaying ? "Pausar radio" : "Reproducir radio");
-    playBtn.setAttribute("aria-pressed", String(isPlaying));
-    livePlayBtn.setAttribute("aria-pressed", String(isPlaying));
-    bottomPlay.setAttribute("aria-pressed", String(isPlaying));
-    playBtn.classList.toggle("is-playing", isPlaying);
-    livePlayBtn.classList.toggle("is-playing", isPlaying);
-    bottomPlay.classList.toggle("is-playing", isPlaying);
-    heroPlayer.classList.toggle("is-playing", isPlaying);
-    bottomPlayer.classList.toggle("is-playing", isPlaying);
 
-    if (message) {
+    if (livePlayBtn) {
+        const liveLabel = isPlaying ? ".  Reproduciendo" : ".  Escuchar en vivo";
+        livePlayBtn.textContent = liveLabel;
+        livePlayBtn.setAttribute("aria-label", isPlaying ? "Radio reproduciendose, tocar para pausar" : "Escuchar en vivo");
+        livePlayBtn.setAttribute("aria-pressed", String(isPlaying));
+        livePlayBtn.classList.toggle("is-playing", isPlaying);
+    }
+
+    if (heroPlayer) {
+        heroPlayer.classList.toggle("is-playing", isPlaying);
+    }
+
+    if (bottomPlayer) {
+        bottomPlayer.classList.toggle("is-playing", isPlaying);
+    }
+
+    if (message && playerStatus) {
         playerStatus.textContent = message;
     }
 }
 
 function togglePlayback() {
+    if (!radioPlayer) return;
     showRadioMode();
 
     if (radioPlayer.paused) {
-        playerStatus.textContent = "Conectando con la radio...";
+        if (playerStatus) playerStatus.textContent = "Conectando con la radio...";
         radioPlayer.play().catch(() => {
             setPlaybackUI(false, "No se pudo iniciar la transmision. Intenta de nuevo.");
         });
@@ -79,6 +98,8 @@ function togglePlayback() {
 }
 
 function showVideoMode() {
+    if (!youtubeLiveFrame || !heroPlayer || !watchLiveBtn || !radioPlayer) return;
+    radioWasPlaying = !radioPlayer.paused;
     if (!youtubeLiveFrame.getAttribute("src")) {
         youtubeLiveFrame.setAttribute("src", youtubeLiveFrame.dataset.src);
     }
@@ -86,29 +107,48 @@ function showVideoMode() {
     heroPlayer.classList.add("is-video");
     watchLiveBtn.classList.add("is-active");
     watchLiveBtn.setAttribute("aria-pressed", "true");
-    watchLiveBtn.querySelector("span").textContent = "Solo escuchar";
+    const watchLiveSpan = watchLiveBtn.querySelector("span");
+    if (watchLiveSpan) watchLiveSpan.textContent = "Solo escuchar";
     watchLiveBtn.setAttribute("aria-label", "Volver a solo escuchar la radio");
-    playerStatus.textContent = radioPlayer.paused
-        ? "Video en vivo muteado. Puedes activar la radio cuando quieras."
-        : "Video en vivo muteado. La radio sigue sonando.";
+
+    if (!radioPlayer.paused) {
+        radioPlayer.pause();
+    }
+
+    if (playerStatus) {
+        playerStatus.textContent = "Video en vivo con audio. La radio ha sido pausada.";
+    }
 }
 
 function showRadioMode() {
+    if (!youtubeLiveFrame || !heroPlayer || !watchLiveBtn || !radioPlayer) return;
     heroPlayer.classList.remove("is-video");
     watchLiveBtn.classList.remove("is-active");
     watchLiveBtn.setAttribute("aria-pressed", "false");
-    watchLiveBtn.querySelector("span").textContent = "Ver en vivo";
+    const watchLiveSpan = watchLiveBtn.querySelector("span");
+    if (watchLiveSpan) watchLiveSpan.textContent = "Ver en vivo";
     watchLiveBtn.setAttribute("aria-label", "Ver transmision en vivo");
 
     if (youtubeLiveFrame.getAttribute("src")) {
         youtubeLiveFrame.removeAttribute("src");
     }
+
+    if (radioWasPlaying) {
+        radioPlayer.play().catch(() => {
+            setPlaybackUI(false, "No se pudo reanudar la radio.");
+        });
+    }
+
+    if (playerStatus) {
+        playerStatus.textContent = radioPlayer.paused ? "Radio en pausa." : "Transmitiendo en vivo.";
+    }
 }
 
 function toggleVideoMode() {
+    if (!heroPlayer) return;
     if (heroPlayer.classList.contains("is-video")) {
         showRadioMode();
-        playerStatus.textContent = radioPlayer.paused ? "Radio en pausa." : "Transmitiendo en vivo.";
+        if (playerStatus) playerStatus.textContent = radioPlayer.paused ? "Radio en pausa." : "Transmitiendo en vivo.";
         return;
     }
 
@@ -129,20 +169,22 @@ async function sharePage() {
 
     if (navigator.clipboard) {
         await navigator.clipboard.writeText(shareData.url);
-        playerStatus.textContent = "Enlace copiado para compartir.";
+        if (playerStatus) playerStatus.textContent = "Enlace copiado para compartir.";
         return;
     }
 
-    playerStatus.textContent = "Copia el enlace de la barra del navegador para compartir.";
+    if (playerStatus) playerStatus.textContent = "Copia el enlace de la barra del navegador para compartir.";
 }
 
 function changeVolume(step) {
+    if (!radioPlayer || !volumeRange) return;
     const nextVolume = Math.min(1, Math.max(0, radioPlayer.volume + step));
     radioPlayer.volume = nextVolume;
     volumeRange.value = String(Math.round(nextVolume * 100));
 }
 
 function syncVolumeFromSlider() {
+    if (!radioPlayer || !volumeRange) return;
     radioPlayer.volume = Number(volumeRange.value) / 100;
 }
 
@@ -197,6 +239,7 @@ function typeHeroTitle() {
 }
 
 function openSidebar() {
+    if (!sidebar || !overlay || !menuToggle) return;
     sidebar.classList.add("active");
     overlay.classList.add("active");
     document.body.classList.add("no-scroll");
@@ -205,6 +248,7 @@ function openSidebar() {
 }
 
 function closeSidebarMenu() {
+    if (!sidebar || !overlay || !menuToggle) return;
     sidebar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("no-scroll");
@@ -213,6 +257,7 @@ function closeSidebarMenu() {
 }
 
 function toggleAboutText() {
+    if (!aboutToggle || !aboutMore) return;
     const isExpanded = aboutToggle.getAttribute("aria-expanded") === "true";
 
     aboutMore.hidden = isExpanded;
@@ -220,20 +265,20 @@ function toggleAboutText() {
     aboutToggle.textContent = isExpanded ? "Conoce mas" : "Ocultar";
 }
 
-playBtn.addEventListener("click", togglePlayback);
-livePlayBtn.addEventListener("click", togglePlayback);
-bottomPlay.addEventListener("click", togglePlayback);
-watchLiveBtn.addEventListener("click", toggleVideoMode);
-sharePageBtn.addEventListener("click", sharePage);
-volumeRange.addEventListener("input", syncVolumeFromSlider);
-heroVolumeDownBtn.addEventListener("click", () => changeVolume(-0.1));
-heroVolumeUpBtn.addEventListener("click", () => changeVolume(0.1));
-volumeDownBtn.addEventListener("click", () => changeVolume(-0.1));
-volumeUpBtn.addEventListener("click", () => changeVolume(0.1));
-menuToggle.addEventListener("click", openSidebar);
-closeSidebar.addEventListener("click", closeSidebarMenu);
-overlay.addEventListener("click", closeSidebarMenu);
-aboutToggle.addEventListener("click", toggleAboutText);
+if (playBtn) playBtn.addEventListener("click", togglePlayback);
+if (livePlayBtn) livePlayBtn.addEventListener("click", togglePlayback);
+if (bottomPlay) bottomPlay.addEventListener("click", togglePlayback);
+if (watchLiveBtn) watchLiveBtn.addEventListener("click", toggleVideoMode);
+if (sharePageBtn) sharePageBtn.addEventListener("click", sharePage);
+if (volumeRange) volumeRange.addEventListener("input", syncVolumeFromSlider);
+if (heroVolumeDownBtn) heroVolumeDownBtn.addEventListener("click", () => changeVolume(-0.1));
+if (heroVolumeUpBtn) heroVolumeUpBtn.addEventListener("click", () => changeVolume(0.1));
+if (volumeDownBtn) volumeDownBtn.addEventListener("click", () => changeVolume(-0.1));
+if (volumeUpBtn) volumeUpBtn.addEventListener("click", () => changeVolume(0.1));
+if (menuToggle) menuToggle.addEventListener("click", openSidebar);
+if (closeSidebar) closeSidebar.addEventListener("click", closeSidebarMenu);
+if (overlay) overlay.addEventListener("click", closeSidebarMenu);
+if (aboutToggle) aboutToggle.addEventListener("click", toggleAboutText);
 
 sidebarLinks.forEach((link) => {
     link.addEventListener("click", closeSidebarMenu);
@@ -245,23 +290,25 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-radioPlayer.addEventListener("playing", () => {
-    setPlaybackUI(true, "Transmitiendo en vivo.");
-});
+if (radioPlayer) {
+    radioPlayer.addEventListener("playing", () => {
+        setPlaybackUI(true, "Transmitiendo en vivo.");
+    });
 
-radioPlayer.addEventListener("pause", () => {
-    setPlaybackUI(false, "Radio en pausa.");
-});
+    radioPlayer.addEventListener("pause", () => {
+        setPlaybackUI(false, "Radio en pausa.");
+    });
 
-radioPlayer.addEventListener("waiting", () => {
-    playerStatus.textContent = "Cargando la transmision...";
-});
+    radioPlayer.addEventListener("waiting", () => {
+        if (playerStatus) playerStatus.textContent = "Cargando la transmision...";
+    });
 
-radioPlayer.addEventListener("error", () => {
-    setPlaybackUI(false, "No se pudo cargar la radio. Verifica el enlace o reintenta.");
-});
+    radioPlayer.addEventListener("error", () => {
+        setPlaybackUI(false, "No se pudo cargar la radio. Verifica el enlace o reintenta.");
+    });
 
-setPlaybackUI(false, "Listo para reproducir la radio en vivo.");
+    setPlaybackUI(false, "Listo para reproducir la radio en vivo.");
+}
 
 const revealTargets = document.querySelectorAll(".hero-left, .hero-player, .highlight-item, .panel");
 revealTargets.forEach((element, index) => {

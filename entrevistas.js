@@ -7,8 +7,8 @@
     const inputBottom = document.getElementById('searchInterviews');
     const list = document.getElementById('interviewsList');
     const items = list ? Array.from(list.querySelectorAll('.interview-card')) : [];
-    const menuToggleHeader = document.getElementById('menuToggleHeader');
-    const livePlayBtnHeader = document.getElementById('livePlayBtnHeader');
+    const menuToggleHeader = document.getElementById('menuToggle');
+    const livePlayBtnHeader = document.getElementById('livePlayBtn');
     const closeSidebarBtn = document.getElementById('closeSidebar');
     const sidebar = document.getElementById('mobileSidebar');
     const overlay = document.getElementById('sidebarOverlay');
