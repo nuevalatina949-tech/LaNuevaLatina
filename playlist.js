@@ -125,12 +125,12 @@ async function setSpotifyMetadata(card) {
         card.dataset.trackTitle = metadata.title;
     }
 
-    if (metadata.author && subtitleElement) {
-        subtitleElement.textContent = metadata.author;
+    if (subtitleElement) {
+        subtitleElement.textContent = metadata.author || card.dataset.artist || "Artista";
     }
 
     if (smallElement) {
-        smallElement.textContent = metadata.extra || metadata.provider || "Spotify";
+        smallElement.textContent = metadata.extra || metadata.provider || "Disponible en Spotify";
     }
 }
 
@@ -140,12 +140,13 @@ function initializePlaylistMetadata() {
         const subtitleElement = card.querySelector(".playlist-copy p");
         const smallElement = card.querySelector(".playlist-copy small");
         const fallback = spotifyTrackMetadataFallbacks[card.dataset.spotifyUri] || {};
+        const artistName = card.dataset.artist || fallback.author || "Artista";
 
         if (titleElement) {
-            titleElement.textContent = fallback.title || "Cargando...";
+            titleElement.textContent = fallback.title || card.dataset.trackTitle || "Cargando...";
         }
         if (subtitleElement) {
-            subtitleElement.textContent = fallback.author || "Spotify";
+            subtitleElement.textContent = artistName;
         }
         if (smallElement) {
             smallElement.textContent = fallback.extra || "Disponible en Spotify";
