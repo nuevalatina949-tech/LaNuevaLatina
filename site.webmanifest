@@ -1,0 +1,17 @@
+{
+  "name": "La Nueva Latina 94.9",
+  "short_name": "La Nueva Latina",
+  "description": "Radio en vivo en Ponce, Puerto Rico con música, entrevistas y programación 24/7.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
